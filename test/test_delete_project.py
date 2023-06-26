@@ -20,7 +20,7 @@ def test_delete_project_db(app, db, check_ui):
     old_projects.remove(project)
     assert old_projects == new_projects
     if check_ui:
-        assert sorted(old_projects, key=Project.id_or_max) == sorted(new_projects, key=Project.id_or_max)
+        assert sorted(new_projects, key=Project.id_or_max) == sorted(app.project.get_project_list(), key=Project.id_or_max)
 
 def test_delete_project_Ui(app):
     if app.project.get_project_list() == 0:
