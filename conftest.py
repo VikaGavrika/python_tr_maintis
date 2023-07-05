@@ -29,7 +29,6 @@ def config(request):
 def app(request, config):
     global fixture
     browser = request.config.getoption("--browser")
-    #обращаемся к функции кода конфигурации с параметром значения опции таргет и берем блок веб из загруж конф-и
     if fixture is None or not fixture.is_valid():
         fixture = Application(browser=browser, config=config)
     fixture.session.ensure_login(username=config["web"]["username"], password=config["web"]["password"])

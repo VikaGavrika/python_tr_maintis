@@ -34,16 +34,12 @@ def test_add_project_db(app, db, project, check_ui):
 
 @pytest.mark.parametrize("project", testdata, ids=[repr(x) for x in testdata])
 def test_add_project_SOAP(app, project):
-    #будем добавлять проекты для пользователя administrator с паролем root (как и выше добавляли проекты под этим польз-ем)
-    web_config = app.config['web']
-    username = web_config['username']
-    password = web_config['password']
     #soap список старых проектов
-    old_projects = app.soap.get_project_list(username, password)
+    old_projects = app.soap.get_project_list()
     #добавляем проект через интерфейс
     app.project.create_new_project(project)
     # soap список новых проектов
-    new_projects = app.soap.get_project_list(username, password)
+    new_projects = app.soap.get_project_list()
     assert len(old_projects) + 1 == len(new_projects)
     old_projects.append(project)
     assert sorted(old_projects, key=Project.id_or_max) == sorted(new_projects, key=Project.id_or_max)

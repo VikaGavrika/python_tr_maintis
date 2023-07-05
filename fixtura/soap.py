@@ -17,8 +17,13 @@ class SoapHelper:
         except WebFault:
             return False
 
-    def get_project_list(self, username, password):
-        client = Client("http://localhost/mantisbt-1.2.20/api/soap/mantisconnect.php?wsdl")
+    def get_link(self):
+        return Client(self.app.config['web']['baseUrl'] + "api/soap/mantisconnect.php?wsdl")
+
+    def get_project_list(self):
+        username = self.app.config['web']['username']
+        password = self.app.config['web']['password']
+        client = self.get_link()
         try:
             #Get the list of projects that are accessible to the logged in user
             #Получить список проектов, доступных для вошедшего в систему пользователя.
