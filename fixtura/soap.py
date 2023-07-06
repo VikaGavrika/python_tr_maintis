@@ -10,7 +10,7 @@ class SoapHelper:
         self.app = app
 
     def can_login(self, username, password): #проверка того,что пользователь может войти в систему
-        client = Client("http://localhost/mantisbt-1.2.20/api/soap/mantisconnect.php?wsdl")
+        client = self.get_link()
         try:
             client.service.mc_login(username, password)
             return True
